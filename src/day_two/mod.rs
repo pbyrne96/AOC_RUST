@@ -19,9 +19,19 @@ const WON_VALUE: i32 = 6;
 const DRAW_VALUE: i32 = 3;
 const LOSS_VALUE: i32 = 0;
 
-pub fn find_result (_other: char, _default: char ) -> char {
-
-    return LOSS;
+pub fn find_result (_other: char, _default: char ) -> Result<char, char> {
+    match (_other,  _default) {
+        (OTHER_ROCK, DRAW) => Ok(DEFAULT_ROCK),
+        (OTHER_ROCK, WON) => Ok(DEFAULT_PAPER),
+        (OTHER_ROCK, LOSS) => Ok(DEFAULT_SCISSORS),
+        (OTHER_PAPER, DRAW) => Ok(DEFAULT_PAPER),
+        (OTHER_PAPER, WON) => Ok(DEFAULT_SCISSORS),
+        (OTHER_PAPER, LOSS) => Ok(DEFAULT_ROCK),
+        (OTHER_SCISSORS, DRAW) => Ok(DEFAULT_SCISSORS),
+        (OTHER_SCISSORS, WON) => Ok(DEFAULT_ROCK),
+        (OTHER_SCISSORS, LOSS) => Ok(DEFAULT_PAPER),
+        _ => Err(LOSS),
+    }
 }
 
 pub fn get_result_value (_result: char, _second_char: char ) -> i32 {
@@ -77,9 +87,11 @@ pub fn run () {
        let (first_char, second_char) = (score_chars[0], score_chars[score_chars.iter().len()-1]);
        let first_symbol_score  = calc_your_score(second_char).unwrap();
        let actual_score = first_symbol_score + get_result_value(first_char, second_char);
-       problem_one+=actual_score;
-       let _decide_symbol = find_result(first_char, second_char);
-        problem_two += first_symbol_score + get_result_value(first_char, _decide_symbol);
+       problem_one +=actual_score;
+
+       let chosen_symbol = find_result(first_char, second_char).unwrap();
+       let chosen_symbol_score = calc_your_score(chosen_symbol).unwrap();
+       problem_two+=chosen_symbol_score + get_result_value(first_char, chosen_symbol);
     }
     println!("{:?}", problem_one);
     println!("{:?}", problem_two);
