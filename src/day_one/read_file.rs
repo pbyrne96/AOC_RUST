@@ -11,7 +11,6 @@ pub fn run () -> Vec<i32> {
             _iter_str.push(',');
             _iter_str.push_str(line.trim());
         } else {
-
             _iter_str.push(':');
         }
     }
