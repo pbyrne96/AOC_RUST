@@ -18,10 +18,18 @@ pub fn run () -> Vec<i32> {
     for strs in _iter_str.split(":") {
         let mut _iter_vec: Vec<i32> = Vec::new();
         let chars_vec:Vec<char> = strs.chars().collect();
-        let _sliced_vec = &chars_vec.as_slice()[1..chars_vec.iter().len()].iter().collect::<String>();
+        let _sliced_vec = &chars_vec
+            .as_slice()
+            [1..chars_vec.iter().len()]
+            .iter()
+            .collect::<String>();
+
         for sliced_string in _sliced_vec.split(",") {
-            let as_num: i32 = sliced_string.parse::<i32>().unwrap();
-            _iter_vec.push(as_num);
+            _iter_vec.push(
+                sliced_string
+                .parse::<i32>()
+                .unwrap()
+            );
         }
         _totals.push(_iter_vec.iter().sum());
     }
