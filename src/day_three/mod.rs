@@ -1,5 +1,5 @@
 mod day_three;
 
-fn main () {
+pub fn run () {
     day_three::run();
 }

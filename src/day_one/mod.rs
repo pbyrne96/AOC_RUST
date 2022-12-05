@@ -1,6 +1,7 @@
 mod read_file;
 mod problem_one;
 mod problem_two;
+mod imporved_solution;
 
 pub fn run () {
     let _file: Vec<i32> = read_file::run();
