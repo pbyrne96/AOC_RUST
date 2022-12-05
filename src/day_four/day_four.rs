@@ -1,4 +1,3 @@
-use itertools::Itertools;
 
 fn main() {
     println!("Part 1: {}", count(|(a1, a2, b1, b2)| a1 <= b1 && b2 <= a2 || b1 <= a1 && a2 <= b2));

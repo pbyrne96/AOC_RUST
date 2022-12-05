@@ -32,4 +32,5 @@ fn main()  {
         .filter(|&v| *v >= 2)
         .count();
     println!("{}", ans);
+
 }
