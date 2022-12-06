@@ -4,13 +4,13 @@ use std::{fs};
 
 pub fn run () {
     let _initial_stack: HashMap<i32, Vec<&str>> = HashMap::from([
-        (1, ["Z", "J", "G", " ", " ", " ", " ", " "].to_vec()),
+        (1, ["Z", "J", "G"].to_vec()),
         (2, ["Q", "L", "R", "P", "W", "F", "V", "C"].to_vec()),
-        (3, ["F", "P", "M", "C", "L", "G", "R", ""].to_vec()),
-        (4, ["L", "F", "B", "W", "P", "H", "M", ""].to_vec()),
-        (5, ["G", "C", "F", "S", "V", "Q", " ", " "].to_vec()),
+        (3, ["F", "P", "M", "C", "L", "G", "R"].to_vec()),
+        (4, ["L", "F", "B", "W", "P", "H", "M"].to_vec()),
+        (5, ["G", "C", "F", "S", "V", "Q"].to_vec()),
         (6, ["W", "H", "J", "Z", "M", "Q", "T", "L"].to_vec()),
-        (7, ["F", "J", "Z", "S", " ", " ", " ", " "].to_vec()),
+        (7, ["F", "J", "Z", "S"].to_vec()),
         (8, ["M", "C", "D", "P", "F", "H", "B", "T"].to_vec()),
     ]);
 
