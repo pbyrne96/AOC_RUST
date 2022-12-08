@@ -9,15 +9,17 @@ pub fn init_search (
 
     let return_value = 0 as usize;
 
-    for  rows in given_input
-        .as_slice()[top_vec +1..bottom_vec]
+    for  (_i, rows )in given_input
+        .as_slice()[top_vec..bottom_vec+1]
         .into_iter()
+        .enumerate()
          {
-            let row_to_compare = rows
-                .as_slice()[1..row_depth]
-                .into_iter()
-                .collect::<Vec<&i32>>();
-
+            let depth = &_depth_matrix[_i];
+            for _index in 1..row_depth-1 {
+                let current = rows[_index];
+                let _up_to = rows.as_slice()[0.._index].into_iter();
+                let _to_from = rows.as_slice()[_index+1..row_depth].into_iter();
+            }
         }
 
     return_value
@@ -65,7 +67,5 @@ pub fn main () {
         ).collect();
 
     println!("{:?}", depth_matrix);
-    println!("{:?}", parsed_nums);
-
     init_search(&parsed_nums, depth_matrix, row_depth as usize);
 }
