@@ -43,11 +43,14 @@ pub fn init_search (
                     search_arr(&_up_to, compare_val),
                     search_arr(&_to_from, compare_val),
                 ].to_vec();
-                return_value += V.iter()
+                return_value +=
+                    V.iter()
                     .filter(|x| **x > 0)
                     .map(|x| i32::from(*x))
                     .collect::<Vec<i32>>()
-                    .iter().copied().reduce(|a:i32, b: i32| a * b)
+                    .iter()
+                    .copied()
+                    .reduce(|a:i32, b: i32| a * b)
                     .unwrap();
             }
         }
