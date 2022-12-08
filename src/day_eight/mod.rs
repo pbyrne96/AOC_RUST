@@ -1,7 +1,3 @@
-use std::borrow::Borrow;
-
-
-
 pub fn search_arr (arr_to_check: &Vec<i32> , compare_val: i32) -> i32 {
     for (i, value) in arr_to_check.into_iter().enumerate() {
         if compare_val < *value {
