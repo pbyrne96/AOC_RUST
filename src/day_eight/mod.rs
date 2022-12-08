@@ -36,21 +36,24 @@ pub fn init_search (
                     rows.as_slice()[0.._index].to_vec(), rows.as_slice()[_index+1..row_depth].to_vec()
                 );
                 let (above, below) = slice_depth_arr(given_input, _index);
-                let V = [
+                let v = [
                     search_arr(&above,compare_val),
                     search_arr(&below, compare_val),
                     search_arr(&_up_to, compare_val),
                     search_arr(&_to_from, compare_val),
                 ].to_vec();
-                return_value +=
-                    V.iter()
+                let hold =
+                    v.iter()
                     .filter(|x| **x > 0)
                     .map(|x| i32::from(*x))
-                    .collect::<Vec<i32>>()
-                    .iter()
-                    .copied()
-                    .reduce(|a:i32, b: i32| a * b)
-                    .unwrap();
+                    .collect::<Vec<i32>>();
+                if !hold.is_empty() {
+                    return_value += hold
+                        .iter()
+                        .copied()
+                        .reduce(|a:i32, b: i32| a * b)
+                        .unwrap();
+                }
             }
         }
     return_value
