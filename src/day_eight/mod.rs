@@ -49,8 +49,7 @@ pub fn main () {
 
     let mut parsed_nums:Vec<Vec<i32>> = Vec::new();
 
-    // always assumes the same depth of trees/ rows
-    let mut row_depth = 0;
+    // always assumes the same depth of trees/ row
 
     input_data
         .into_iter()
@@ -64,16 +63,13 @@ pub fn main () {
                 _row_nums.push(_char_as_string.parse::<i32>().unwrap());
             }
 
-            if row_depth == 0 {
-                row_depth = _row_nums.iter().len();
-            }
             if ! _row_nums.is_empty() {
                 parsed_nums.push(_row_nums);
             }
 
         });
 
-
+    let row_depth = parsed_nums[0].len();
     let c = init_search(&parsed_nums, row_depth as usize);
     println!("{:?}", c);
 }
