@@ -23,7 +23,6 @@ pub fn init_search (
     row_depth: usize
 ) -> i32 {
     let (top_vec, bottom_vec) = (0 as usize, given_input.iter().len() -1 );
-
     let mut return_value = 0;
 
     for  (_i, rows )in given_input
@@ -31,11 +30,11 @@ pub fn init_search (
         .into_iter()
         .enumerate()
          {
-
             for _index in 1..row_depth-1 {
                 let compare_val = rows[_index];
-                let _up_to = rows.as_slice()[0.._index].to_vec();
-                let _to_from = rows.as_slice()[_index+1..row_depth].to_vec();
+                let (_up_to, _to_from) = (
+                    rows.as_slice()[0.._index].to_vec(), rows.as_slice()[_index+1..row_depth].to_vec()
+                );
                 let (above, below) = slice_depth_arr(given_input, _index);
                 let V = [
                     search_arr(&above,compare_val),
