@@ -1,7 +1,7 @@
 pub fn search_arr (arr_to_check: &Vec<i32> , compare_val: i32) -> i32 {
     for (i, value) in arr_to_check.into_iter().enumerate() {
         if compare_val < *value {
-            return i as i32;
+            return i + 1 as i32;
         }
     }
     return 0 as i32;
