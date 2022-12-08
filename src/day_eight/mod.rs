@@ -45,8 +45,10 @@ pub fn init_search (
                 ].to_vec();
                 return_value += V.iter()
                     .filter(|x| **x > 0)
-                    .map(|x| i32::from(*x)).collect::<Vec<i32>>()
-                    .iter().copied().reduce(|a:i32, b: i32| a * b);
+                    .map(|x| i32::from(*x))
+                    .collect::<Vec<i32>>()
+                    .iter().copied().reduce(|a:i32, b: i32| a * b)
+                    .unwrap();
             }
         }
     return_value
