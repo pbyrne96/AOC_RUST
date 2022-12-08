@@ -1,6 +1,6 @@
 pub fn search_arr (arr_to_check: &Vec<i32> , compare_val: i32) -> i32 {
     for (i, value) in arr_to_check.into_iter().enumerate() {
-        if compare_val < *value {
+        if compare_val <= *value {
             return i as i32 + 1;
         }
     }
@@ -36,24 +36,6 @@ pub fn init_search (
                     rows.as_slice()[0.._index].to_vec(), rows.as_slice()[_index+1..row_depth].to_vec()
                 );
                 let (above, below) = slice_depth_arr(given_input, _index);
-                let v = [
-                    search_arr(&above,compare_val),
-                    search_arr(&below, compare_val),
-                    search_arr(&_up_to, compare_val),
-                    search_arr(&_to_from, compare_val),
-                ].to_vec();
-                let hold =
-                    v.iter()
-                    .filter(|x| **x > 0)
-                    .map(|x| i32::from(*x))
-                    .collect::<Vec<i32>>();
-                if !hold.is_empty() {
-                    return_value += hold
-                        .iter()
-                        .copied()
-                        .reduce(|a:i32, b: i32| a * b)
-                        .unwrap();
-                }
             }
         }
     return_value
@@ -92,5 +74,6 @@ pub fn main () {
         });
 
 
-    init_search(&parsed_nums, row_depth as usize);
+    let c = init_search(&parsed_nums, row_depth as usize);
+    println!("{:?}", c);
 }
