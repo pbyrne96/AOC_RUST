@@ -1,27 +1,58 @@
+use std::borrow::Borrow;
 
+
+
+pub fn search_arr (arr_to_check: &Vec<i32> , compare_val: i32) -> i32 {
+    for (i, value) in arr_to_check.into_iter().enumerate() {
+        if compare_val < *value {
+            return i as i32;
+        }
+    }
+    return 0 as i32;
+}
+
+pub fn slice_depth_arr (arr_to_slice: &Vec<Vec<i32>>, pos: usize) -> (Vec<i32>, Vec<i32>) {
+    let mut depth_arr:Vec<i32> = Vec::new();
+    for arr in arr_to_slice.into_iter() {
+        depth_arr.push(arr[pos]);
+    }
+    (
+        depth_arr.as_slice()[0..pos].to_vec(),
+        depth_arr.as_slice()[pos+1..].to_vec()
+    )
+}
 
 pub fn init_search (
     given_input:&Vec<Vec<i32>>,
-    _depth_matrix: Vec<Vec<i32>>,
     row_depth: usize
-) -> usize {
+) -> i32 {
     let (top_vec, bottom_vec) = (0 as usize, given_input.iter().len() -1 );
 
-    let return_value = 0 as usize;
+    let mut return_value = 0;
 
     for  (_i, rows )in given_input
         .as_slice()[top_vec..bottom_vec+1]
         .into_iter()
         .enumerate()
          {
-            let depth = &_depth_matrix[_i];
+
             for _index in 1..row_depth-1 {
-                let current = rows[_index];
-                let _up_to = rows.as_slice()[0.._index].into_iter();
-                let _to_from = rows.as_slice()[_index+1..row_depth].into_iter();
+                let compare_val = rows[_index];
+                let _up_to = rows.as_slice()[0.._index].to_vec();
+                let _to_from = rows.as_slice()[_index+1..row_depth].to_vec();
+                let (above, below) = slice_depth_arr(given_input, _index);
+                let V = [
+                    search_arr(&above,compare_val),
+                    search_arr(&below, compare_val),
+                    search_arr(&_up_to, compare_val),
+                    search_arr(&_to_from, compare_val),
+                ].to_vec();
+                return_value += V.iter()
+                    .filter(|x| **x > 0)
+                    .map(|x| i32::from(*x)).collect::<Vec<i32>>()
+                    .iter().copied().reduce(|a:i32, b: i32| a * b);
             }
         }
-
     return_value
 }
 
@@ -58,14 +89,5 @@ pub fn main () {
         });
 
 
-    let depth_matrix: Vec<Vec<i32>> = (0..parsed_nums[0].len())
-        .map(|i|
-            parsed_nums
-            .iter()
-            .map(|c| c[i])
-            .collect::<Vec<i32>>()
-        ).collect();
-
-    println!("{:?}", depth_matrix);
-    init_search(&parsed_nums, depth_matrix, row_depth as usize);
+    init_search(&parsed_nums, row_depth as usize);
 }
