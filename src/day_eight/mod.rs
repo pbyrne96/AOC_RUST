@@ -1,76 +1,94 @@
-mod attempt_two;
+use::std::collections::HashSet;
 
-
-pub fn _slice_depth_arr (arr_to_slice: &Vec<Vec<i32>>, pos: usize) -> (Vec<i32>, Vec<i32>) {
-    let mut depth_arr:Vec<i32> = Vec::new();
-    for arr in arr_to_slice.into_iter() {
-        depth_arr.push(arr[pos]);
-    }
-    (
-        depth_arr.as_slice()[0..pos].to_vec(),
-        depth_arr.as_slice()[pos+1..].to_vec()
-    )
+pub struct Grid {
+    grid: Vec<Vec<char>>,
+    width: i32,
+    height: i32,
+    up: (i32, i32),
+    down: (i32, i32),
+    right: (i32, i32),
+    left: (i32, i32),
 }
 
-pub fn _init_search (
-    given_input:&Vec<Vec<i32>>,
-    row_depth: usize
-) -> i32 {
-    let (top_vec, bottom_vec) = (0 as usize, given_input.iter().len() -1 );
-    let return_value = 0;
+impl Grid {
+    pub fn _new() -> Self {
+        Grid {
+            grid: Vec::new(),
+            width: 0,
+            height: 0,
+            up: (-1, 0),
+            down: (1, 0),
+            right: (0, 1),
+            left: (0, -1),
+        }
+    }
 
-    for  (_i, rows )in given_input
-        .as_slice()[top_vec..bottom_vec+1]
-        .into_iter()
-        .enumerate()
-         {
-            for _index in 1..row_depth-1 {
-                let _compare_val = rows[_index];
-                let (_up_to, _to_from) = (
-                    rows.as_slice()[0.._index].to_vec(), rows.as_slice()[_index+1..row_depth].to_vec()
-                );
-                let (above, below) = _slice_depth_arr(given_input, _index);
-                println!("{:?}, {:?}", above, below);
+    fn _parse(self: &mut Self) {
+        let lines = include_str!("../day_eight/day_eight_input.txt")
+            .lines()
+            .into_iter()
+            .map(|s| String::from(s))
+            .collect::<Vec<String>>();
+
+        self.width = lines[0].len() as i32;
+        self.height = lines.len() as i32;
+
+        for row in lines {
+            self.grid.push(row.chars().collect::<Vec<char>>());
+        }
+    }
+
+
+    fn _part1 (self: &mut Self) -> i32{
+        let mut total:HashSet<(i32, i32)> = HashSet::new();
+
+        for (start, step, search) in [
+            ((0,0), self.right, self.down),
+            ((0,0), self.down, self.right),
+            ((self.height - 1, self.width -1 ), self.up, self.left),
+            ((self.height -1, self.width -1), self.left, self.up),
+        ]
+        {
+            let mut walk = start;
+
+            while walk.0 >= 0 && walk.0 < self.height && walk.1 >=0 && walk.1 < self.width {
+                let (mut row, mut col) = walk;
+                let mut tallest = self.grid[row as usize][col as usize];
+
+                total.insert(walk);
+
+                while tallest < '9' {
+                    row += search.0;
+                    col += search.1;
+
+                    if row < 0 || row >= self.height || col < 0 || col >= self.width {
+                        break;
+                    }
+
+                    let tree = self.grid[row as usize][col as usize];
+                    if tree > tallest {
+                        total.insert((row, col));
+                        tallest = tree;
+                    }
+                }
+                walk.0 += step.0;
+                walk.1 += step.1;
             }
         }
-    return_value
+
+        total.len() as i32
+    }
+
+    fn _part2 () {
+
+    }
+
+
 }
 
-pub fn main () -> Result<(u32, u32), ndarray::ShapeError> {
-    let input_data = include_str!("../day_eight/day_eight_input.txt")
-        .split("\n")
-        .into_iter()
-        .collect::<Vec<&str>>();
-
-    let mut parsed_nums:Vec<Vec<i32>> = Vec::new();
-
-    // always assumes the same depth of trees/ row
-
-    input_data
-        .into_iter()
-        .for_each(|x| {
-            let mut _row_nums: Vec<i32> = Vec::new();
-            for mut _char in x.chars().into_iter() {
-                let _char_as_string: String = _char.to_string();
-                if _char_as_string.is_empty() {
-                    continue;
-                }
-                _row_nums.push(_char_as_string.parse::<i32>().unwrap());
-            }
-
-            if ! _row_nums.is_empty() {
-                parsed_nums.push(_row_nums);
-            }
-
-        });
-
-
-    let take_two = attempt_two::day8(include_str!("../day_eight/day_eight_input.txt"));
-    println!("{:?}", take_two);
-
-    // let row_depth = parsed_nums[0].len();
-    // let _c = init_search(&parsed_nums, row_depth as usize);
-
-    Ok(take_two)
-
+pub fn main () {
+    let mut new_grid = Grid::_new();
+    Grid::_parse(&mut new_grid);
+    let res = Grid::_part1(&mut new_grid);
+    println!("{:?}", res);
 }
