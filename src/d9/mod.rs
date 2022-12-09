@@ -52,13 +52,14 @@ impl Positions {
             self._tail.1 += col_diff.signum();
 
         } else if col_diff == 0 && row_diff > 1 {
-            self._tail.0 += col_diff.signum();
+            self._tail.0 += row_diff.signum();
 
-        } else if row_diff.abs() > 1 && col_diff.abs() > 1 {
+        } else if row_diff.abs() > 1 || col_diff.abs() > 1 {
             self._tail.0 += row_diff.signum();
             self._tail.1 += col_diff.signum();
-
         }
+
+        self.visited.insert(self._tail);
 
     }
 }
@@ -96,7 +97,6 @@ impl DayEight {
                 current_positions._make_move(dir);
             }
         }
-
         current_positions.visited.len() as i32
     }
 }
@@ -105,6 +105,7 @@ pub fn main () {
 
     let mut day_eight = DayEight::_new();
     day_eight._parse_input();
-    day_eight._part_one();
+    let count = day_eight._part_one();
+    println!("{:?}", count);
 
 }
