@@ -15,7 +15,7 @@ pub fn run () {
     ]);
 
 
-    let data:Vec<String> = fs::read_to_string("./day_five/stripped_input.txt")
+    let data:Vec<String> = fs::read_to_string("./d5/stripped_input.txt")
         .expect("read the data")
         .lines()
         .map(String::from)

@@ -5,7 +5,7 @@ fn main() {
 }
 
 fn count(p: fn(&(u32, u32, u32, u32)) -> bool) -> usize {
-    include_str!(".day_four.txt")
+    include_str!(".d4.txt")
         .lines()
         .filter_map(|s| s.split(|c: char| !c.is_numeric()).map(|n| n.parse().unwrap()).next_tuple())
         .filter(p)

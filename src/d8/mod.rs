@@ -24,7 +24,7 @@ impl Grid {
     }
 
     fn _parse(self: &mut Self) {
-        let lines = include_str!("../day_eight/day_eight_input.txt")
+        let lines = include_str!("../d8/day_eight_input.txt")
             .lines()
             .into_iter()
             .map(|s| String::from(s))

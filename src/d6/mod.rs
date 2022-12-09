@@ -40,7 +40,7 @@ fn part_two(slice: &str, depth: usize) -> usize{
 }
 
 pub fn main () {
-    let buffer = fs::read_to_string("./day_six/day_six.txt").expect("read the data");
+    let buffer = fs::read_to_string("./d6/day_six.txt").expect("read the data");
     let depth: usize = 3;
     let message_detector: usize = 14;
     for line in buffer.lines() {

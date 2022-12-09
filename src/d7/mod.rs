@@ -100,7 +100,7 @@ fn part2(sizes: &[usize], cur_used: usize) -> usize {
 }
 
 pub fn main() {
-    let input = include_str!("../day_seven/day_seven.txt");
+    let input = include_str!("../d7/day_seven.txt");
     let root = parse_input(input);
     let mut sizes = vec![];
     let root_borrow = root.borrow();

@@ -18,7 +18,7 @@ pub fn get_priority_map () -> HashMap<char, usize> {
 }
 
 pub fn run () {
-    let data: String = fs::read_to_string("./day_three/day_three.txt")
+    let data: String = fs::read_to_string("./d3/day_three.txt")
         .expect("Read data");
 
     let mut string_vec: Vec<String> = Vec::new();

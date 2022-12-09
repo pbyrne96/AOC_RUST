@@ -96,7 +96,7 @@ fn running_total (data: &Vec<&str>) {
 
 
 pub fn main () {
-    let binding = fs::read_to_string("./day_seven/day_seven.txt")
+    let binding = fs::read_to_string("./d7/day_seven.txt")
         .expect("Read the data");
     let data: Vec<&str> = binding
         .lines()
