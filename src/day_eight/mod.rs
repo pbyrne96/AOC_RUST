@@ -1,11 +1,5 @@
-pub fn search_arr (arr_to_check: &Vec<i32> , compare_val: i32) -> i32 {
-    for (i, value) in arr_to_check.into_iter().enumerate() {
-        if compare_val <= *value {
-            return i as i32 + 1;
-        }
-    }
-    return 0 as i32;
-}
+mod attempt_two;
+
 
 pub fn slice_depth_arr (arr_to_slice: &Vec<Vec<i32>>, pos: usize) -> (Vec<i32>, Vec<i32>) {
     let mut depth_arr:Vec<i32> = Vec::new();
@@ -23,7 +17,7 @@ pub fn init_search (
     row_depth: usize
 ) -> i32 {
     let (top_vec, bottom_vec) = (0 as usize, given_input.iter().len() -1 );
-    let mut return_value = 0;
+    let return_value = 0;
 
     for  (_i, rows )in given_input
         .as_slice()[top_vec..bottom_vec+1]
@@ -36,12 +30,13 @@ pub fn init_search (
                     rows.as_slice()[0.._index].to_vec(), rows.as_slice()[_index+1..row_depth].to_vec()
                 );
                 let (above, below) = slice_depth_arr(given_input, _index);
+                println!("{:?}, {:?}", above, below);
             }
         }
     return_value
 }
 
-pub fn main () {
+pub fn main () -> Result<(u32, u32), ndarray::ShapeError> {
     let input_data = include_str!("../day_eight/day_eight_input.txt")
         .split("\n")
         .into_iter()
@@ -69,7 +64,13 @@ pub fn main () {
 
         });
 
-    let row_depth = parsed_nums[0].len();
-    let c = init_search(&parsed_nums, row_depth as usize);
-    println!("{:?}", c);
+
+    let take_two = attempt_two::day8(include_str!("../day_eight/day_eight_input.txt"));
+    println!("{:?}", take_two);
+
+    // let row_depth = parsed_nums[0].len();
+    // let _c = init_search(&parsed_nums, row_depth as usize);
+
+    Ok(take_two)
+
 }
