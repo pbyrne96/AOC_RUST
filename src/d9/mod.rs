@@ -8,17 +8,17 @@ use::std::collections::{HashSet};
 //     Right,
 // }
 
-impl  Direction {
-    fn _parse(s:&str) -> i32 {
-        match s {
-            "U" => 0,
-            "D" => 1,
-            "L" => 2,
-            "R" => 3,
-            _ => panic!("could not find direction"),
-        }
+
+fn _parse(s:&str) -> i32 {
+    match s {
+        "U" => 0,
+        "D" => 1,
+        "L" => 2,
+        "R" => 3,
+        _ => panic!("could not find direction"),
     }
 }
+
 
 #[derive(Debug)]
 struct Positions {
@@ -82,7 +82,7 @@ impl DayEight {
 
         for line in input {
             let (dir, dis) = line.split_once(' ').unwrap();
-            let dir = Direction::_parse(dir);
+            let dir = _parse(dir);
             let distance = dis.parse::<i32>().unwrap();
             self.steps.push((dir, distance));
         }
