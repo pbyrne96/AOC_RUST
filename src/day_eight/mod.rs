@@ -1,7 +1,7 @@
 mod attempt_two;
 
 
-pub fn slice_depth_arr (arr_to_slice: &Vec<Vec<i32>>, pos: usize) -> (Vec<i32>, Vec<i32>) {
+pub fn _slice_depth_arr (arr_to_slice: &Vec<Vec<i32>>, pos: usize) -> (Vec<i32>, Vec<i32>) {
     let mut depth_arr:Vec<i32> = Vec::new();
     for arr in arr_to_slice.into_iter() {
         depth_arr.push(arr[pos]);
@@ -12,7 +12,7 @@ pub fn slice_depth_arr (arr_to_slice: &Vec<Vec<i32>>, pos: usize) -> (Vec<i32>, 
     )
 }
 
-pub fn init_search (
+pub fn _init_search (
     given_input:&Vec<Vec<i32>>,
     row_depth: usize
 ) -> i32 {
@@ -25,11 +25,11 @@ pub fn init_search (
         .enumerate()
          {
             for _index in 1..row_depth-1 {
-                let compare_val = rows[_index];
+                let _compare_val = rows[_index];
                 let (_up_to, _to_from) = (
                     rows.as_slice()[0.._index].to_vec(), rows.as_slice()[_index+1..row_depth].to_vec()
                 );
-                let (above, below) = slice_depth_arr(given_input, _index);
+                let (above, below) = _slice_depth_arr(given_input, _index);
                 println!("{:?}, {:?}", above, below);
             }
         }
