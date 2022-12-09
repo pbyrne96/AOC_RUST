@@ -1,14 +1,5 @@
 use::std::collections::{HashSet};
 
-
-// enum Direction {
-//     Up,
-//     Down,
-//     Left,
-//     Right,
-// }
-
-
 fn _parse(s:&str) -> i32 {
     match s {
         "U" => 0,
@@ -20,7 +11,6 @@ fn _parse(s:&str) -> i32 {
 }
 
 
-#[derive(Debug)]
 struct Positions {
     _head: (i32, i32),
     _tail: (i32, i32),
