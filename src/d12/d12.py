@@ -35,7 +35,7 @@ def dijkstra(graph, source):
     dist[source] = 0
 
     while Q:
-        u = min(Q, key=dist.get)
+        u = min(Q, key=dist.get) # type:ignore
         Q.remove(u)
 
         for v in graph[u]:
